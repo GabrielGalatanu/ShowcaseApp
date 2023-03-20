@@ -1,9 +1,19 @@
-const express = require("express");
+import express from "express";
+const cors = require("cors");
 const app = express();
-const port = 3000;
+const port = 3002;
 
-app.get("/", (req: any, res: any) => {
-  res.send("Hello World!");
+app.use(express.json());
+
+//disable cors
+app.use(cors());
+
+const user = require("./endpoints/user");
+
+app.use("/user", user);
+
+app.post("/", (req: any, res: any) => {
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {

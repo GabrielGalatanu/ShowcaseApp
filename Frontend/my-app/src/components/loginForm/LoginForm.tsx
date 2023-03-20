@@ -10,6 +10,20 @@ import "./LoginForm.scss";
 const LoginForm = () => {
   const navigate = useNavigate();
 
+  const handleLoginButton = () => {
+    console.log("login");
+
+    let data = "abcd";
+
+    fetch("http://localhost:3002", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+  };
+
   const handleRegisterButton = () => navigate("/register");
 
   return (
@@ -21,7 +35,11 @@ const LoginForm = () => {
         <Textfield />
       </div>
 
-      <Button variant="contained" className="login-botton">
+      <Button
+        variant="contained"
+        className="login-botton"
+        onClick={handleLoginButton}
+      >
         Login
       </Button>
 
