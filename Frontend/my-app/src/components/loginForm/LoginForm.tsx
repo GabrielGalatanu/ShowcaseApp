@@ -1,27 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-
 import Button from "@mui/material/Button";
+
 import Textfield from "../textfield/Textfield";
+import { login } from "../../services/http/user";
 
 import "./LoginForm.scss";
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
-  const handleLoginButton = () => {
-    console.log("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    let data = "abcd";
+  const handleLoginButton = async () => {
+    console.log("email: ", email);
+    console.log("password: ", password);
 
-    fetch("http://localhost:3002", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
+    let response = await login(email, password);
+
+    // console.log(response);
   };
 
   const handleRegisterButton = () => navigate("/register");
@@ -30,9 +29,17 @@ const LoginForm = () => {
     <div className="login-form__container">
       <p className="login-text">Login</p>
       <div className="email-and-password-container">
-        <Textfield />
+        <Textfield
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <Textfield />
+        <Textfield
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </div>
 
       <Button

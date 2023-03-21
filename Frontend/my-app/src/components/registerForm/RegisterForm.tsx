@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-
 import Button from "@mui/material/Button";
+
 import Textfield from "../textfield/Textfield";
+import { register } from "../../services/http/user";
 
 import "./RegisterForm.scss";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRegisterButton = async () => {
+    console.log("email: ", email);
+    console.log("password: ", password);
+    console.log("confirmPassword: ", confirmPassword);
+
+    if (password !== confirmPassword) {
+      console.log("Passwords don't match");
+      return;
+    }
+
+    let response = await register(email, password);
+
+    console.log(response);
+  };
 
   const handleBackToLoginButton = () => navigate("/login");
 
@@ -16,14 +36,30 @@ const RegisterForm = () => {
     <div className="register-form__container">
       <p className="register-text-title">Register</p>
       <div className="email-and-password-container">
-        <Textfield />
+        <Textfield
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <Textfield />
+        <Textfield
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-        <Textfield />
+        <Textfield
+          label="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
       </div>
 
-      <Button variant="contained" className="register-botton">
+      <Button
+        variant="contained"
+        className="register-botton"
+        onClick={handleRegisterButton}
+      >
         Register
       </Button>
 

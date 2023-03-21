@@ -1,10 +1,17 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 import "./Textfield.scss";
 
-export default function Textfield() {
+interface Props {
+  label: string;
+  value: string;
+  onChange: (e: any) => void;
+}
+
+export default function Textfield(props: Props) {
+  const { label, value, onChange } = props;
+
   return (
     <Box className="textfield__container">
       <TextField
@@ -32,7 +39,9 @@ export default function Textfield() {
         }}
         autoComplete="off"
         id="standard-basic"
-        label="Standard"
+        label={label}
+        value={value}
+        onChange={onChange}
         variant="standard"
         fullWidth
       />
