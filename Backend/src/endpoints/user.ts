@@ -10,9 +10,6 @@ const User = db.user;
 
 module.exports = app.post("/login", async (req: any, res: any) => {
   try {
-    console.log("login");
-    console.log(req.body);
-
     const user = await User.findOne({
       where: {
         email: req.body.email,
@@ -52,9 +49,6 @@ module.exports = app.post(
   [verifySignUp.checkDuplicateEmail],
   async (req: any, res: any) => {
     try {
-      console.log('register');
-      console.log(req.body);
-
       const user = new User({
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),

@@ -1,0 +1,10 @@
+https://sequelize.org/docs/v6/other-topics/migrations/
+
+npx sequelize-cli model:generate --name User --attributes firstName:string,isActive:boolean
+
+npx sequelize-cli db:migrate
+
+npx sequelize-cli seed:generate --name demo-user
+npx sequelize-cli db:seed:all - seed;
+npx sequelize-cli db:seed:undo - undo seed;
+npx sequelize-cli db:seed:undo:all

@@ -6,6 +6,9 @@ const multer = require("multer");
 const path = require("path");
 const upload = multer({ dest: "public/images" });
 
+import { db } from "../models";
+const Showcase = db.showcase;
+
 module.exports = app.post(
   "/create",
   upload.single("image"),
@@ -16,9 +19,15 @@ module.exports = app.post(
 
       const newPath = file.path + extension;
 
-      //rename file
       fs.rename(file.path, newPath, (err: any) => {
         if (err) throw err;
+      });
+
+      await Showcase.create({
+        user_id: 100,
+        site: req.body.site,
+        image_path: newPath.replace(/\\/g, "/").replace("public", ""),
+        brief_description: req.body.briefDescription,
       });
 
       res.sendStatus(200);
@@ -28,5 +37,16 @@ module.exports = app.post(
     }
   }
 );
+
+module.exports = app.get("/getAll", async (req: any, res: any) => {
+  try {
+    let showcases = await Showcase.findAll();
+
+    res.status(200).send(showcases);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
 
 export {};

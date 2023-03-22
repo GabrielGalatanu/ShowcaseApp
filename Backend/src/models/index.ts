@@ -28,5 +28,6 @@ db.sequelize = sequelize;
 
 // db.user = require("./user.model.ts")(sequelize, Sequelize);
 db.user = require("./user.model")(sequelize, Sequelize);
+db.showcase = require("./showcase.model")(sequelize, Sequelize);
 
 export { db };
