@@ -15,12 +15,11 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const handleLoginButton = async () => {
-    console.log("email: ", email);
-    console.log("password: ", password);
-
     let response = await login(email, password);
 
-    // console.log(response);
+    if (response) {
+      navigate("/");
+    }
   };
 
   const handleRegisterButton = () => navigate("/register");

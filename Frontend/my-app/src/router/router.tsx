@@ -1,5 +1,3 @@
-import React, { FC } from "react";
-
 import {
   BrowserRouter,
   Routes,
@@ -11,6 +9,7 @@ import {
 import HomePage from "../pages/homePage/HomePage";
 import LoginPage from "../pages/loginPage/LoginPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
+import CreateShowcasePage from "../pages/createShowcasePage/CreateShowcasePage";
 
 import AuthService from "../services/auth/auth";
 
@@ -23,6 +22,7 @@ const AppRouter = () => {
 
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/create-showcase" element={<CreateShowcasePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
