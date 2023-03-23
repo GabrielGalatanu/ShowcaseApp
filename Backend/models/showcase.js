@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
   Showcase.init(
     {
       user_id: DataTypes.INTEGER,
-      site: DataTypes.STRING,
-      brief_description: DataTypes.STRING,
-      image_path: DataTypes.STRING,
+      site: DataTypes.STRING(2024),
+      brief_description: DataTypes.STRING(2024),
+      image_path: DataTypes.STRING(2024),
     },
     {
       sequelize,

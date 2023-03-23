@@ -13,13 +13,13 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       site: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2024),
       },
       brief_description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2024),
       },
       image_path: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2024),
       },
       createdAt: {
         allowNull: false,

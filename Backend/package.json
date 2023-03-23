@@ -26,7 +26,7 @@
   "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc & node .",
+    "start": "tsc & nodemon .",
     "dev": "tsc -w & nodemon ."
   }
 }
