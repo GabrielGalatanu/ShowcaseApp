@@ -10,6 +10,7 @@ import HomePage from "../pages/homePage/HomePage";
 import LoginPage from "../pages/loginPage/LoginPage";
 import RegisterPage from "../pages/registerPage/RegisterPage";
 import CreateShowcasePage from "../pages/createShowcasePage/CreateShowcasePage";
+import UserShowcasesPage from "../pages/userShowcasesPage/UserShowcasesPage";
 
 import AuthService from "../services/auth/auth";
 
@@ -23,6 +24,7 @@ const AppRouter = () => {
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/create-showcase" element={<CreateShowcasePage />} />
+          <Route path="/user-showcases" element={<UserShowcasesPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,10 @@
 import React from "react";
 
 import Button from "@mui/material/Button";
+import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
+import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
+import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 
 import "./Showcase.scss";
 
@@ -8,10 +12,15 @@ interface IShowcaseProps {
   site: string;
   brief_description: string;
   image_path: string;
+
+  onEdit?: () => void;
+  onHide?: () => void;
+  onRemove?: () => void;
 }
 
 const Showcase = (props: IShowcaseProps) => {
-  const { site, brief_description, image_path } = props;
+  const { site, brief_description, image_path, onEdit, onHide, onRemove } =
+    props;
 
   const handleShowcaseSiteButtonClick = () => {
     if (site) {
@@ -23,8 +32,50 @@ const Showcase = (props: IShowcaseProps) => {
     }
   };
 
+  const buttonsMenuJSX = () => {
+    return (
+      <div className="buttons-menu">
+        <div className="buttons-menu__container">
+          {onEdit && (
+            <Button
+              className="buttons-menu__button"
+              onClick={() => {
+                onEdit();
+              }}
+            >
+              <CreateRoundedIcon />
+            </Button>
+          )}
+
+          {onHide && (
+            <Button
+              className="buttons-menu__button"
+              onClick={() => {
+                onHide();
+              }}
+            >
+              <VisibilityOffRoundedIcon />
+            </Button>
+          )}
+
+          {onRemove && (
+            <Button
+              className="buttons-menu__button"
+              onClick={() => {
+                onRemove();
+              }}
+            >
+              <DeleteOutlineRoundedIcon />
+            </Button>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="showcase__container">
+      {buttonsMenuJSX()}
       <div className="content-container">
         <img
           className="image-showcase"

@@ -1,47 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Button from "@mui/material/Button";
-
 import Showcase from "../../components/showcase/Showcase";
-import { getAllShowcases } from "../../services/http/showcase";
 
-import "./HomePage.scss";
+import { getUserShowcases } from "../../services/http/showcase";
 
-const HomePage = () => {
+import "./UserShowcasesPage.scss";
+
+const UserShowcasesPage = () => {
   const navigate = useNavigate();
 
   const [showcases, setShowcases] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     (async () => {
-      const response = await getAllShowcases();
+      const response = await getUserShowcases();
 
       if (response) setShowcases(response.showcases);
     })();
   }, []);
 
   return (
-    <div className="home-page__container">
+    <div className="user-showcase-page__container">
       <div className="container">
-        <Button
-          onClick={() => {
-            navigate("/create-showcase");
-          }}
-        >
-          Add
-        </Button>
-
-        <Button
-          onClick={() => {
-            navigate("/user-showcases");
-          }}
-        >
-          My showcases
-        </Button>
-
-        <p className="showcase-grid-title">Showcase</p>
-
+        <p className="showcase-grid-title">My showcases</p>
         <div className="showcase-grid-container">
           {showcases.map((item) => {
             return (
@@ -50,6 +32,15 @@ const HomePage = () => {
                 site={item.site}
                 brief_description={item.brief_description}
                 image_path={item.image_path}
+                onEdit={() => {
+                  console.log("abc");
+                }}
+                onHide={() => {
+                  console.log("abc");
+                }}
+                onRemove={() => {
+                  console.log("abc");
+                }}
               />
             );
           })}
@@ -59,4 +50,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default UserShowcasesPage;

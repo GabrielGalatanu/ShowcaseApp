@@ -4,6 +4,8 @@ import authService from "../auth/auth";
 
 const createNewShowcase = (data: Showcase) => {
   try {
+    let user = authService.getCurrentUser();
+
     let formData = new FormData();
     formData.append("image", data.image);
     formData.append("site", data.site);
@@ -12,6 +14,9 @@ const createNewShowcase = (data: Showcase) => {
     return fetch("http://localhost:3002/showcase/create", {
       method: "POST",
       body: formData,
+      headers: {
+        Authorization: "Bearer " + user.accessToken,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -36,4 +41,27 @@ const getAllShowcases = async () => {
   }
 };
 
-export { createNewShowcase, getAllShowcases };
+const getUserShowcases = async () => {
+  try {
+    let user = authService.getCurrentUser();
+
+    let data = await fetch("http://localhost:3002/showcase/getUserShowcases", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + user.accessToken,
+      },
+    });
+
+    if (data.status === 200) {
+      let dataJson = await data.json();
+
+      return { showcases: dataJson };
+    }
+
+    return { showcases: [] };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { createNewShowcase, getAllShowcases, getUserShowcases };

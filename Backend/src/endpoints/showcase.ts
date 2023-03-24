@@ -8,9 +8,11 @@ const upload = multer({ dest: "public/images" });
 
 import { db } from "../models";
 const Showcase = db.showcase;
+const { authJwt } = require("../middleware");
 
 module.exports = app.post(
   "/create",
+  authJwt.verifyToken,
   upload.single("image"),
   async (req: any, res: any) => {
     try {
@@ -24,7 +26,7 @@ module.exports = app.post(
       });
 
       await Showcase.create({
-        user_id: 100,
+        user_id: req.userId,
         site: req.body.site,
         image_path: newPath.replace(/\\/g, "/").replace("public", ""),
         brief_description: req.body.briefDescription,
@@ -48,5 +50,29 @@ module.exports = app.get("/getAll", async (req: any, res: any) => {
     res.sendStatus(500);
   }
 });
+
+module.exports = app.get(
+  "/getUserShowcases",
+  authJwt.verifyToken,
+  async (req: any, res: any) => {
+    try {
+      console.log('aici');
+      console.log(req.userId);
+
+      let showcases = await Showcase.findAll({
+        where: {
+          user_id: req.userId,
+        },
+      });
+
+      console.log(showcases);
+
+      res.status(200).send(showcases);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+);
 
 export {};

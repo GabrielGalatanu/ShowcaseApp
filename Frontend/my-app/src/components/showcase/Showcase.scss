@@ -2,6 +2,36 @@
   display: flex;
   flex-direction: column;
 
+  .buttons-menu {
+    display: flex;
+
+    width: 100%;
+
+    .buttons-menu__container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .buttons-menu__button {
+      background-color: white;
+      color: black;
+      font-family: "Roboto", sans-serif;
+      font-weight: bold;
+      border-radius: 5px;
+      width: 25%;
+      margin-top: 20px;
+      text-transform: none;
+
+      &:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
   .content-container {
     display: flex;
 

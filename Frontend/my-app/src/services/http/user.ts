@@ -10,11 +10,15 @@ const login = async (email: string, password: string) => {
     }),
   });
 
-  const data = await response.json();
+  if (response.status === 200) {
+    const data = await response.json();
 
-  localStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("user", JSON.stringify(data));
 
-  return data;
+    return data;
+  }
+
+  return null;
 };
 
 const register = async (email: string, password: string) => {
