@@ -16,18 +16,11 @@ const RegisterForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegisterButton = async () => {
-    console.log("email: ", email);
-    console.log("password: ", password);
-    console.log("confirmPassword: ", confirmPassword);
-
-    if (password !== confirmPassword) {
-      console.log("Passwords don't match");
-      return;
-    }
+    if (password !== confirmPassword) return;
 
     let response = await register(email, password);
 
-    console.log(response);
+    if (response.status === 200) navigate("/login");
   };
 
   const handleBackToLoginButton = () => navigate("/login");

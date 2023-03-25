@@ -18,11 +18,13 @@ const CreateShowcasePage = () => {
   const [image, setImage] = React.useState(null);
 
   const handleSubmit = async () => {
-    await createNewShowcase({
+    let response = await createNewShowcase({
       site,
       briefDescription,
       image,
     });
+
+    if (response && response.status === 200) navigate("/");
   };
 
   return (

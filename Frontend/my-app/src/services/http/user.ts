@@ -33,7 +33,7 @@ const register = async (email: string, password: string) => {
     }),
   });
 
-  return response.json();
+  return response;
 };
 
 export { login, register };

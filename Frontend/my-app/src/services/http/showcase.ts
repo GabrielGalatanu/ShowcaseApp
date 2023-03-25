@@ -18,6 +18,7 @@ const createNewShowcase = (data: Showcase) => {
         Authorization: "Bearer " + user.accessToken,
       },
     });
+    
   } catch (error) {
     console.log(error);
   }

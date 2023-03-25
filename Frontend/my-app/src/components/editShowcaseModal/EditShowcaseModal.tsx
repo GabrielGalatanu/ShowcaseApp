@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import IconButton from "@mui/material/IconButton";
@@ -99,9 +98,9 @@ const EditShowcaseModal = (props: IEditShowcaseModalProps) => {
               <ImageDropzone image={image} setImage={setImage} />
             )}
 
-            <button className="submit-button" type="submit">
+            <Button className="submit-button" type="submit">
               Submit
-            </button>
+            </Button>
           </form>
         </Box>
       </Modal>

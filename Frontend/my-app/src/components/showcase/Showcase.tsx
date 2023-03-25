@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 
 import "./Showcase.scss";
 
@@ -77,7 +77,7 @@ const Showcase = (props: IShowcaseProps) => {
                 onRemove();
               }}
             >
-              <DeleteOutlineRoundedIcon />
+              <DeleteRoundedIcon />
             </Button>
           )}
         </div>

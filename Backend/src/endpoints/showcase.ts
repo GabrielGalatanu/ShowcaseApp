@@ -80,6 +80,7 @@ module.exports = app.get(
         where: {
           user_id: req.userId,
         },
+        order: [["id", "DESC"]],
       });
 
       res.status(200).send(showcases);
