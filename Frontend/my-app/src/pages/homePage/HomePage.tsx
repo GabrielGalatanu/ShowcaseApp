@@ -46,6 +46,7 @@ const HomePage = () => {
       <div className="container">
         <div className="header-menu">
           <Button
+            data-cy="logout-button"
             className="menu-button"
             onClick={() => {
               AuthService.logout();
@@ -61,6 +62,7 @@ const HomePage = () => {
 
         <div className="add-and-view-buttons">
           <Button
+            data-cy="add-showcase-button"
             className="menu-button"
             onClick={() => {
               navigate("/create-showcase");
@@ -70,6 +72,7 @@ const HomePage = () => {
           </Button>
 
           <Button
+            data-cy="view-showcase-button"
             className="menu-button"
             onClick={() => {
               navigate("/user-showcases");
@@ -92,14 +95,17 @@ const HomePage = () => {
           })}
         </div>
 
-        <Stack spacing={2} sx={{ marginBottom: "30px" }}>
-          <Pagination
-            shape="rounded"
-            count={totalPages}
-            variant="outlined"
-            onChange={handlePageChange}
-          />
-        </Stack>
+        {totalPages > 1 && (
+          <Stack spacing={2} sx={{ marginBottom: "30px" }}>
+            <Pagination
+              data-cy="pagination"
+              shape="rounded"
+              count={totalPages}
+              variant="outlined"
+              onChange={handlePageChange}
+            />
+          </Stack>
+        )}
       </div>
     </div>
   );

@@ -29,12 +29,14 @@ const LoginForm = () => {
       <p className="login-text">Login</p>
       <div className="email-and-password-container">
         <Textfield
+          inputProps={{ "data-cy": "email-input" }}
           label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <Textfield
+         inputProps={{ "data-cy": "password-input" }}
           label="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -42,6 +44,7 @@ const LoginForm = () => {
       </div>
 
       <Button
+        data-cy="login-button"
         variant="contained"
         className="login-botton"
         onClick={handleLoginButton}

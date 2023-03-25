@@ -30,18 +30,21 @@ const RegisterForm = () => {
       <p className="register-text-title">Register</p>
       <div className="email-and-password-container">
         <Textfield
+          inputProps={{ "data-cy": "email-input" }}
           label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <Textfield
+          inputProps={{ "data-cy": "password-input" }}
           label="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
         <Textfield
+          inputProps={{ "data-cy": "confirm-password-input" }}
           label="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -49,6 +52,7 @@ const RegisterForm = () => {
       </div>
 
       <Button
+        data-cy="register-button"
         variant="contained"
         className="register-botton"
         onClick={handleRegisterButton}

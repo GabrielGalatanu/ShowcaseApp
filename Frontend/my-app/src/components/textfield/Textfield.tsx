@@ -7,6 +7,7 @@ interface Props {
   label: string;
   value: string;
   onChange: (e: any) => void;
+  inputProps?: any;
 }
 
 export default function Textfield(props: Props) {
@@ -15,6 +16,7 @@ export default function Textfield(props: Props) {
   return (
     <Box className="textfield__container">
       <TextField
+        data-cy={props.inputProps?.["data-cy"]}
         InputProps={{
           style: { color: "white" },
         }}

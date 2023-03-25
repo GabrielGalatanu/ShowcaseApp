@@ -65,6 +65,7 @@ const UserShowcasesPage = () => {
         <div className="container">
           <div className="header-menu">
             <Button
+              data-cy="back-button"
               className="menu-button"
               onClick={() => {
                 navigate("/");
