@@ -23,16 +23,23 @@ const createNewShowcase = (data: Showcase) => {
   }
 };
 
-const getAllShowcases = async () => {
+const getAllShowcases = async (page: number, pageSize: number) => {
   try {
     let data = await fetch("http://localhost:3002/showcase/getAll", {
       method: "GET",
+      headers: {
+        page: page.toString(),
+        page_size: pageSize.toString(),
+      },
     });
 
     if (data.status === 200) {
       let dataJson = await data.json();
 
-      return { showcases: dataJson };
+      return {
+        showcases: dataJson.showcases,
+        total_pages: dataJson.total_pages,
+      };
     }
 
     return { showcases: [] };

@@ -48,15 +48,23 @@ module.exports = app.post(
 
 module.exports = app.get("/getAll", async (req: any, res: any) => {
   try {
-    let showcases = await Showcase.findAll({
+    const page = parseInt(req.headers.page);
+    const pageSize = parseInt(req.headers.page_size);
+
+    let showcases = await Showcase.findAndCountAll({
       where: {
         hidden: false,
       },
 
+      offset: page * pageSize,
+      limit: pageSize,
       order: [["id", "DESC"]],
     });
 
-    res.status(200).send(showcases);
+    res.status(200).send({
+      showcases: showcases.rows,
+      total_pages: Math.ceil(showcases.count / pageSize),
+    });
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

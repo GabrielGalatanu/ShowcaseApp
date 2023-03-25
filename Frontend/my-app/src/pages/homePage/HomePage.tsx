@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 import Showcase from "../../components/showcase/Showcase";
 import AuthService from "../../services/auth/auth";
@@ -9,18 +11,35 @@ import { getAllShowcases } from "../../services/http/showcase";
 
 import "./HomePage.scss";
 
+const MAX_SHOWCASES_PER_PAGE = 6;
+
 const HomePage = () => {
   const navigate = useNavigate();
 
   const [showcases, setShowcases] = React.useState<any[]>([]);
+  const [page, setPage] = React.useState(0);
+  const [totalPages, setTotalPages] = React.useState(1);
+
+  const fetchShowcases = React.useCallback(async () => {
+    const response = await getAllShowcases(page, MAX_SHOWCASES_PER_PAGE);
+
+    if (!response) return;
+
+    setShowcases(response.showcases);
+    setTotalPages(response.total_pages);
+  }, [page]);
 
   React.useEffect(() => {
-    (async () => {
-      const response = await getAllShowcases();
+    fetchShowcases();
+  }, [fetchShowcases, page]);
 
-      if (response) setShowcases(response.showcases);
-    })();
-  }, []);
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value - 1);
+    fetchShowcases();
+  };
 
   return (
     <div className="home-page__container">
@@ -72,6 +91,15 @@ const HomePage = () => {
             );
           })}
         </div>
+
+        <Stack spacing={2} sx={{ marginBottom: "30px" }}>
+          <Pagination
+            shape="rounded"
+            count={totalPages}
+            variant="outlined"
+            onChange={handlePageChange}
+          />
+        </Stack>
       </div>
     </div>
   );

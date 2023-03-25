@@ -41,3 +41,13 @@ code {
 .css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
   background-color: rgba(0, 0, 0, 0) !important;
 }
+
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root {
+  color: #fff !important;
+  border-color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
