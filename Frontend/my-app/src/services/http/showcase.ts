@@ -87,4 +87,28 @@ const updateShowcase = (data: Showcase) => {
   }
 };
 
-export { createNewShowcase, getAllShowcases, getUserShowcases, updateShowcase };
+const deleteShowcase = (showcaseId: number) => {
+  try {
+    let user = authService.getCurrentUser();
+
+    return fetch(
+      `http://localhost:3002/showcase/delete?showcaseId=${showcaseId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + user.accessToken,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  createNewShowcase,
+  getAllShowcases,
+  getUserShowcases,
+  updateShowcase,
+  deleteShowcase,
+};

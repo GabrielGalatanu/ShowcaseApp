@@ -132,4 +132,40 @@ module.exports = app.put(
   }
 );
 
+module.exports = app.delete(
+  "/delete",
+  authJwt.verifyToken,
+  async (req: any, res: any) => {
+    try {
+      if (!req.query.showcaseId || !req.userId) {
+        res.sendStatus(400);
+        return;
+      }
+
+      const showcase = await Showcase.findOne({
+        where: {
+          id: req.query.showcaseId,
+          user_id: req.userId,
+        },
+      });
+
+      if (!showcase) {
+        res.sendStatus(404);
+        return;
+      }
+
+      fs.unlink("public" + showcase.image_path, (err: any) => {
+        if (err) throw err;
+      });
+
+      showcase.destroy();
+
+      res.sendStatus(200);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+);
+
 export {};

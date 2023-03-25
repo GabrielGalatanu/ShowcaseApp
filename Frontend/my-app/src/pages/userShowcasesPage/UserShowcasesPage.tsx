@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import Showcase from "../../components/showcase/Showcase";
 import EditShowcaseModal from "../../components/editShowcaseModal/EditShowcaseModal";
-import { getUserShowcases, updateShowcase } from "../../services/http/showcase";
+import {
+  getUserShowcases,
+  updateShowcase,
+  deleteShowcase,
+} from "../../services/http/showcase";
 
 import "./UserShowcasesPage.scss";
 
@@ -40,6 +44,12 @@ const UserShowcasesPage = () => {
     fetchShowcases();
   };
 
+  const handleDelete = async (showcaseId: number) => {
+    await deleteShowcase(showcaseId);
+
+    fetchShowcases();
+  };
+
   return (
     <div className="user-showcase-page__container">
       {!editModalOpen && (
@@ -61,10 +71,10 @@ const UserShowcasesPage = () => {
                     setEditModalOpen(true);
                   }}
                   onHide={() => {
-                    console.log("abc");
+                    console.log("hide");
                   }}
                   onRemove={() => {
-                    console.log("abc");
+                    handleDelete(item.id);
                   }}
                 />
               );
