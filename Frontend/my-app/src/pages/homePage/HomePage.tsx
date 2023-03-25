@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 
 import Showcase from "../../components/showcase/Showcase";
+import AuthService from "../../services/auth/auth";
 import { getAllShowcases } from "../../services/http/showcase";
 
 import "./HomePage.scss";
@@ -24,23 +25,40 @@ const HomePage = () => {
   return (
     <div className="home-page__container">
       <div className="container">
-        <Button
-          onClick={() => {
-            navigate("/create-showcase");
-          }}
-        >
-          Add
-        </Button>
+        <div className="header-menu">
+          <Button
+            className="menu-button"
+            onClick={() => {
+              AuthService.logout();
 
-        <Button
-          onClick={() => {
-            navigate("/user-showcases");
-          }}
-        >
-          My showcases
-        </Button>
+              navigate("/login");
+            }}
+          >
+            Logout
+          </Button>
+        </div>
 
-        <p className="showcase-grid-title">Showcase</p>
+        <h1 className="showcase-grid-title">Showcase</h1>
+
+        <div className="add-and-view-buttons">
+          <Button
+            className="menu-button"
+            onClick={() => {
+              navigate("/create-showcase");
+            }}
+          >
+            Add
+          </Button>
+
+          <Button
+            className="menu-button"
+            onClick={() => {
+              navigate("/user-showcases");
+            }}
+          >
+            My showcases
+          </Button>
+        </div>
 
         <div className="showcase-grid-container">
           {showcases.map((item) => {

@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import Button from "@mui/material/Button";
+
 import Showcase from "../../components/showcase/Showcase";
 import EditShowcaseModal from "../../components/editShowcaseModal/EditShowcaseModal";
 import {
@@ -61,7 +63,19 @@ const UserShowcasesPage = () => {
     <div className="user-showcase-page__container">
       {!editModalOpen && (
         <div className="container">
-          <p className="showcase-grid-title">My showcases</p>
+          <div className="header-menu">
+            <Button
+              className="menu-button"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Back
+            </Button>
+          </div>
+
+          <h1 className="showcase-grid-title">My showcases</h1>
+
           <div className="showcase-grid-container">
             {showcases.map((item) => {
               return (

@@ -28,6 +28,10 @@ class AuthService implements AuthServiceInterface {
 
     return true;
   };
+
+  logout = () => {
+    localStorage.removeItem("user");
+  };
 }
 
 const authService = new AuthService();

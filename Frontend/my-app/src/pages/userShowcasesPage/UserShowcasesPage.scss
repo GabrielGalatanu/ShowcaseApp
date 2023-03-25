@@ -36,4 +36,28 @@
 
     margin-bottom: 50px;
   }
+
+  .header-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+
+  .menu-button {
+    background-color: white;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+
+    margin-top: 20px;
+    text-transform: none;
+
+    &:hover {
+      background-color: #e6e6e6;
+    }
+  }
 }

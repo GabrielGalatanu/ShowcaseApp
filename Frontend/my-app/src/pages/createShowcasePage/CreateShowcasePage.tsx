@@ -1,4 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+import Button from "@mui/material/Button";
 
 import Textfield from "../../components/textfield/Textfield";
 import MultilineTextfield from "../../components/multilineTextfield/MultilineTextfield";
@@ -8,6 +11,8 @@ import { createNewShowcase } from "../../services/http/showcase";
 import "./CreateShowcasePage.scss";
 
 const CreateShowcasePage = () => {
+  const navigate = useNavigate();
+
   const [site, setSite] = React.useState("");
   const [briefDescription, setBriefDescription] = React.useState("");
   const [image, setImage] = React.useState(null);
@@ -23,6 +28,17 @@ const CreateShowcasePage = () => {
   return (
     <div className="create-showcase-page__container">
       <div className="container">
+        <div className="header-menu">
+          <Button
+            className="menu-button"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Back
+          </Button>
+        </div>
+
         <h1 className="title">Create Showcase Page</h1>
 
         <form
@@ -48,9 +64,9 @@ const CreateShowcasePage = () => {
 
           <ImageDropzone image={image} setImage={setImage} />
 
-          <button className="submit-button" type="submit">
+          <Button className="menu-button" type="submit">
             Submit
-          </button>
+          </Button>
         </form>
       </div>
     </div>
