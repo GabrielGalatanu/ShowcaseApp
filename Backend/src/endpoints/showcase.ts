@@ -16,6 +16,11 @@ module.exports = app.post(
   upload.single("image"),
   async (req: any, res: any) => {
     try {
+      if (!req.file || !req.body.site || !req.body.briefDescription) {
+        res.sendStatus(400);
+        return;
+      }
+
       const file = req.file;
       const extension = path.extname(file.originalname);
 
@@ -56,18 +61,70 @@ module.exports = app.get(
   authJwt.verifyToken,
   async (req: any, res: any) => {
     try {
-      console.log('aici');
-      console.log(req.userId);
-
       let showcases = await Showcase.findAll({
         where: {
           user_id: req.userId,
         },
       });
 
-      console.log(showcases);
-
       res.status(200).send(showcases);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+);
+
+module.exports = app.put(
+  "/update",
+  authJwt.verifyToken,
+  upload.single("image"),
+  async (req: any, res: any) => {
+    try {
+      if (
+        !req.body.showcaseId ||
+        !req.body.site ||
+        !req.body.briefDescription
+      ) {
+        res.sendStatus(400);
+        return;
+      }
+
+      const showcase = await Showcase.findOne({
+        where: {
+          id: req.body.showcaseId,
+          user_id: req.userId,
+        },
+      });
+
+      if (!showcase) {
+        res.sendStatus(404);
+        return;
+      }
+
+      if (req.file && typeof req.file !== "string") {
+        fs.unlink("public" + showcase.image_path, (err: any) => {
+          if (err) throw err;
+        });
+
+        const file = req.file;
+        const extension = path.extname(file.originalname);
+
+        const newPath = file.path + extension;
+
+        fs.rename(file.path, newPath, (err: any) => {
+          if (err) throw err;
+        });
+
+        showcase.image_path = newPath.replace(/\\/g, "/").replace("public", "");
+      }
+
+      showcase.site = req.body.site;
+      showcase.brief_description = req.body.briefDescription;
+
+      await showcase.save();
+
+      res.sendStatus(200);
     } catch (err) {
       console.log(err);
       res.sendStatus(500);

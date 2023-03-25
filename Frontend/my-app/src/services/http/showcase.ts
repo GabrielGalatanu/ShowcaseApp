@@ -64,4 +64,27 @@ const getUserShowcases = async () => {
   }
 };
 
-export { createNewShowcase, getAllShowcases, getUserShowcases };
+const updateShowcase = (data: Showcase) => {
+  try {
+    let user = authService.getCurrentUser();
+
+    let formData = new FormData();
+    if (data.showcaseId)
+      formData.append("showcaseId", data.showcaseId.toString());
+    formData.append("image", data.image);
+    formData.append("site", data.site);
+    formData.append("briefDescription", data.briefDescription);
+
+    return fetch("http://localhost:3002/showcase/update", {
+      method: "PUT",
+      body: formData,
+      headers: {
+        Authorization: "Bearer " + user.accessToken,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { createNewShowcase, getAllShowcases, getUserShowcases, updateShowcase };
