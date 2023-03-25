@@ -87,6 +87,24 @@ const updateShowcase = (data: Showcase) => {
   }
 };
 
+const hideShowcase = (showcaseId: number) => {
+  try {
+    let user = authService.getCurrentUser();
+
+    return fetch(
+      `http://localhost:3002/showcase/hide?showcaseId=${showcaseId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: "Bearer " + user.accessToken,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deleteShowcase = (showcaseId: number) => {
   try {
     let user = authService.getCurrentUser();
@@ -110,5 +128,6 @@ export {
   getAllShowcases,
   getUserShowcases,
   updateShowcase,
+  hideShowcase,
   deleteShowcase,
 };

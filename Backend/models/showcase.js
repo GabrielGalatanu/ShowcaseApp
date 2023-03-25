@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       site: DataTypes.STRING(2024),
       brief_description: DataTypes.STRING(2024),
       image_path: DataTypes.STRING(2024),
+      hidden: DataTypes.BOOLEAN,
     },
     {
       sequelize,

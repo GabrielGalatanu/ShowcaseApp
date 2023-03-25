@@ -21,6 +21,9 @@ module.exports = {
       image_path: {
         type: Sequelize.STRING(2024),
       },
+      hidden: {
+        type: Sequelize.BOOLEAN,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

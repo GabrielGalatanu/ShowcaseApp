@@ -35,6 +35,7 @@ module.exports = app.post(
         site: req.body.site,
         image_path: newPath.replace(/\\/g, "/").replace("public", ""),
         brief_description: req.body.briefDescription,
+        hidden: false,
       });
 
       res.sendStatus(200);
@@ -47,7 +48,13 @@ module.exports = app.post(
 
 module.exports = app.get("/getAll", async (req: any, res: any) => {
   try {
-    let showcases = await Showcase.findAll();
+    let showcases = await Showcase.findAll({
+      where: {
+        hidden: false,
+      },
+
+      order: [["id", "DESC"]],
+    });
 
     res.status(200).send(showcases);
   } catch (err) {
@@ -121,6 +128,40 @@ module.exports = app.put(
 
       showcase.site = req.body.site;
       showcase.brief_description = req.body.briefDescription;
+
+      await showcase.save();
+
+      res.sendStatus(200);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
+);
+
+module.exports = app.put(
+  "/hide",
+  authJwt.verifyToken,
+  async (req: any, res: any) => {
+    try {
+      if (!req.query.showcaseId) {
+        res.sendStatus(400);
+        return;
+      }
+
+      const showcase = await Showcase.findOne({
+        where: {
+          id: req.query.showcaseId,
+          user_id: req.userId,
+        },
+      });
+
+      if (!showcase) {
+        res.sendStatus(404);
+        return;
+      }
+
+      showcase.hidden = !showcase.hidden;
 
       await showcase.save();
 

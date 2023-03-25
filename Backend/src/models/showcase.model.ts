@@ -14,6 +14,9 @@ module.exports = (sequelize: any, Sequelize: any) => {
       image_path: {
         type: Sequelize.STRING,
       },
+      hidden: {
+        type: Sequelize.BOOLEAN,
+      },
     },
     {
       timestamps: true,

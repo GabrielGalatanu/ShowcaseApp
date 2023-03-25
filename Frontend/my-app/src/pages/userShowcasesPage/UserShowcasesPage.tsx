@@ -6,6 +6,7 @@ import EditShowcaseModal from "../../components/editShowcaseModal/EditShowcaseMo
 import {
   getUserShowcases,
   updateShowcase,
+  hideShowcase,
   deleteShowcase,
 } from "../../services/http/showcase";
 
@@ -44,6 +45,12 @@ const UserShowcasesPage = () => {
     fetchShowcases();
   };
 
+  const handleHide = async (showcaseId: number) => {
+    await hideShowcase(showcaseId);
+
+    fetchShowcases();
+  };
+
   const handleDelete = async (showcaseId: number) => {
     await deleteShowcase(showcaseId);
 
@@ -63,6 +70,7 @@ const UserShowcasesPage = () => {
                   site={item.site}
                   brief_description={item.brief_description}
                   image_path={item.image_path}
+                  hidden={item.hidden}
                   onEdit={() => {
                     setEditId(item.id);
                     setEditShowcaseSite(item.site);
@@ -71,7 +79,7 @@ const UserShowcasesPage = () => {
                     setEditModalOpen(true);
                   }}
                   onHide={() => {
-                    console.log("hide");
+                    handleHide(item.id);
                   }}
                   onRemove={() => {
                     handleDelete(item.id);

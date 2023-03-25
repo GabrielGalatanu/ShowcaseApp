@@ -12,6 +12,7 @@ interface IShowcaseProps {
   site: string;
   brief_description: string;
   image_path: string;
+  hidden?: boolean;
 
   onEdit?: () => void;
   onHide?: () => void;
@@ -19,8 +20,15 @@ interface IShowcaseProps {
 }
 
 const Showcase = (props: IShowcaseProps) => {
-  const { site, brief_description, image_path, onEdit, onHide, onRemove } =
-    props;
+  const {
+    site,
+    brief_description,
+    image_path,
+    hidden,
+    onEdit,
+    onHide,
+    onRemove,
+  } = props;
 
   const handleShowcaseSiteButtonClick = () => {
     if (site) {
@@ -54,7 +62,11 @@ const Showcase = (props: IShowcaseProps) => {
                 onHide();
               }}
             >
-              <VisibilityOffRoundedIcon />
+              {hidden ? (
+                <VisibilityOffRoundedIcon />
+              ) : (
+                <VisibilityRoundedIcon />
+              )}
             </Button>
           )}
 
