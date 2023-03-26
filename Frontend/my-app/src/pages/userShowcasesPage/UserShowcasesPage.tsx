@@ -37,14 +37,17 @@ const UserShowcasesPage = () => {
   }, []);
 
   const handleEditSubmit = async () => {
-    await updateShowcase({
+    let response = await updateShowcase({
       showcaseId: editId,
       site: editShowcaseSite,
       briefDescription: editShowcaseBriefDescription,
       image: editShowcaseImage,
     });
 
+    if (response && response.status === 400) return;
+
     fetchShowcases();
+    setEditModalOpen(false);
   };
 
   const handleHide = async (showcaseId: number) => {

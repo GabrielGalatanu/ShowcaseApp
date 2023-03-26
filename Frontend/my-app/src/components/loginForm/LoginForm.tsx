@@ -13,8 +13,16 @@ const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleLoginButton = async () => {
+    if (!email || !password) {
+      setErrorMessage("Please fill all fields");
+      return;
+    }
+
+    setErrorMessage("");
+
     let response = await login(email, password);
 
     if (response) {
@@ -36,12 +44,14 @@ const LoginForm = () => {
         />
 
         <Textfield
-         inputProps={{ "data-cy": "password-input" }}
+          inputProps={{ "data-cy": "password-input" }}
           label="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <Button
         data-cy="login-button"

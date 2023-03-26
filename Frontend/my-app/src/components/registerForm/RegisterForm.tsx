@@ -14,8 +14,16 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleRegisterButton = async () => {
+    if (!email || !password || !confirmPassword) {
+      setErrorMessage("Please fill all fields");
+      return;
+    }
+
+    setErrorMessage("");
+
     if (password !== confirmPassword) return;
 
     let response = await register(email, password);
@@ -50,6 +58,8 @@ const RegisterForm = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <Button
         data-cy="register-button"
